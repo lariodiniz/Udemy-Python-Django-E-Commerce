@@ -28,7 +28,7 @@ PROJECT_ROOT  = os.path.dirname (os.path.abspath ( __file__ ))
 SECRET_KEY = 'pgg4bc(w6jq1rn0em!=32c*^1zbg@+*ii50n_*3(%^h*op4&q5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     'core',
+    'catalago',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -70,6 +71,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                #app
+                'catalago.context_processors.categories'
             ],
         },
     },
@@ -142,3 +145,8 @@ ALLOWED_HOSTS = ['*']
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
+
+try:
+    from .local_settings import *
+except ImportError:
+    pass
