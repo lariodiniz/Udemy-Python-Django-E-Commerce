@@ -3,4 +3,4 @@ Django==1.9.6
 gunicorn==19.4.5
 model-mommy==1.2.6
 whitenoise==2.0.6
-django-heroku==2.0.4
+django-heroku==0.3.1
