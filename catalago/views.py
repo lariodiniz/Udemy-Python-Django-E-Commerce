@@ -1,23 +1,35 @@
 #coding: utf-8
 __author__ = "Lário dos Santos Diniz"
 
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from django.views import generic
+
 from .models import Product, Category
 
-def product_list(request):
-    context = {
-        'product_list': Product.objects.all(),
-    }
-    return render(request, 'catalago/product_list.html', context)
+class ProductListView(generic.ListView):
 
-def category(request, slug):
-    category = Category.objects.get(slug=slug)
+    model = Product
+    template_name = 'catalago/product_list.html'
+    context_object_name = 'products'
+    paginate_by = 3
 
-    context = {
-        'current_category': category,
-        'product_list': Product.objects.filter(category=category),
-    }
-    return render(request, 'catalago/category.html', context)
+product_list = ProductListView.as_view()
+
+class CategoryListView(generic.ListView):
+
+    template_name = 'catalago/category.html'
+    context_object_name = 'product_list'
+    paginate_by = 3
+    
+    def get_queryset(self):        
+        return Product.objects.filter(category__slug=self.kwargs['slug'])
+    
+    def get_context_data(self, **kwargs):
+        contexto = super(CategoryListView, self).get_context_data(**kwargs)
+        contexto['current_category'] = get_object_or_404(Category, slug=self.kwargs['slug'])
+        return contexto
+
+category = CategoryListView.as_view()
 
 def product(request, slug):
     

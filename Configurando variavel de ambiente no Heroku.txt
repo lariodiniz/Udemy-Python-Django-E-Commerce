@@ -1,0 +1,2 @@
+use o comando no prompt 
+heroku config: set SECRET_KEY='chavequalquer'

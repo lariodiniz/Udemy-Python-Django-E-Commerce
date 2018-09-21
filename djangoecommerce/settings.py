@@ -26,7 +26,7 @@ PROJECT_ROOT  = os.path.dirname (os.path.abspath ( __file__ ))
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'pgg4bc(w6jq1rn0em!=32c*^1zbg@+*ii50n_*3(%^h*op4&q5'
+SECRET_KEY = os.getenv('SECRET_KEY', '123')   
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -43,6 +43,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+    #libs
+    'widget_tweaks',
+
     #app
     'core',
     'catalago',
@@ -145,7 +149,11 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # Allow all host headers
 ALLOWED_HOSTS = ['*']
 
-
+# e-MAIL
+EMAIL_HOST = ''
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+DEFAULT_FROM_EMAIL = 'admin@djangoecommerce.com'
 
 try:
     from .local_settings import *
