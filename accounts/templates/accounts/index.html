@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% load widget_tweaks %}
+
+{% block title %}
+    Registro | {{ block.super }}
+{% endblock %}
+
+{% block container %}
+<br>
+<div class="row">
+<ol  class="breadcrumb">
+  <Li> <a href="#"> Início </a> </li >
+  <li class="active">Minha Conta </li >
+</ol >
+<div  class="row">
+    <div class="col-md-4" >
+        <div class="list-group" >
+          <a href="{% url 'accounts:index' %}"  class="lista-group-item ativo" > Minha Conta </a >
+          <a href="{% url 'accounts:update_user' %}" class="lista-group-ponto" > Altera Dados </a >
+          <a href="{% url 'accounts:update_password' %}"  class = "lista-group-ponto" > Altera Senha </a >          
+        </div >
+    </div >
+    <div  class = " col-md-8 " >
+        {% block accounts_container%}
+            <h2 > Bem vindo {{user}} </h2 >
+        {% endblock%}
+    </div >
+</div >
+</div>
+{% endblock %}

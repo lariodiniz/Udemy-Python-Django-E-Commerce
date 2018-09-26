@@ -93,16 +93,3 @@ class LoginViewTestCase(TestCase):
         ' Note que ambos os campos diferenciam maiúsculas de minúsculas.')
         self.assertFormError(response, 'form', None, error_msg)
 
-
-class RegisterViewTestCase(TestCase):
-
-    def setUp(self):
-        self.client = Client()
-        self.url = reverse('register')  
-
-    def test_register_ok(self):
-        data = {'username': 'lario', 'password1':'teste123', 'password1':'teste123'}
-        response = self.client.post(self.url, data)
-        redirect_url = reverse('index')        
-        self.assertRedirects(response, redirect_url)   
-        self.assertEquals(User.objects.count(), 1) 
