@@ -51,9 +51,10 @@ INSTALLED_APPS = [
     'core',
     'accounts',
     'catalago',
+    'checkout',
 ]
 
-MIDDLEWARE_CLASSES = [
+MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',    
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -63,6 +64,7 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'checkout.middleware.cart_item_middleware',
 ]
 
 ROOT_URLCONF = 'djangoecommerce.urls'
@@ -166,6 +168,17 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'accounts.backends.ModelBackend',
 )
+
+
+# Messages
+from django.contrib.messages import constants as messages_constantes
+MESSAGE_TAGS = {
+    messages_constantes.DEBUG: 'debug',
+    messages_constantes.INFO: 'info',
+    messages_constantes.SUCCESS: 'success',
+    messages_constantes.WARNING: 'warning',
+    messages_constantes.ERROR: 'danger'
+}
 
 try:
     from .local_settings import *

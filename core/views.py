@@ -2,17 +2,11 @@
 __author__ = "Lário dos Santos Diniz"
 
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.contrib import messages
 from django.core.mail import send_mail
-from django.conf import settings
-from django.contrib.auth.forms import UserCreationForm
-from django.views.generic import View, TemplateView, CreateView
-from django.contrib.auth import get_user_model
+from django.views.generic import TemplateView
 
 from .forms import ContactForm
-
-
-User = get_user_model()
 
 class IndexView(TemplateView):
     template_name = 'index.html'
@@ -27,6 +21,8 @@ def contact(request):
     if form.is_valid():
         form.send_mail()
         sucess = True
+    elif request.method == 'POST':
+        messages.error(request, 'Formulário inválido.')
 
     context = {
         'form': form,
