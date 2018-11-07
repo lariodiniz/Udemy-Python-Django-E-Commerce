@@ -16,14 +16,15 @@ Finalização da Compra
     </div>
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            Seu pedido foi realizado com sucesso, para realizar o pagamento faça o 
-            depósito na seguinte conta:        
+            <h1>Escolha forma de pagamento.</h1>
         </div>
-        <p>Banco: Zero</p>
-        <p>Tipo de Conta: Corrente</p>
-        <p>Agencia:0000-0</p>
-        <p>Conta:0000000000-0</p>
-        <p>favorecido:Zero Zero dos Zeros</p>
+        <div class="col-md-4 col-md-offset-2">
+            <a href="{% url 'checkout:pagseguro' order.pk %}" class="btn btn-success">Pagar com Pagseguro</a>
+        </div>
+        <div class="col-md-4 col-md-offset-2">
+            <a href="{% url 'checkout:paypal' order.pk %}" class="btn btn-primary">Pagar com PayPal</a>
+        </div>                
+
     </div>
 </div>
 {% endblock container %}
