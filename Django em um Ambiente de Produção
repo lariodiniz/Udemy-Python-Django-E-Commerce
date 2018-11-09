@@ -1,0 +1,71 @@
+Opções para Alugar VPN
+- DigitalOcean [www.digitalocean.com]
+- Linode [www.linode.com]
+- amazon web services [aws.amazon.com/pt]
+
+Amazon
+    - Usa o serviço EC2
+    - Click em Launch Instance
+    - Escolhe o sistema operacional
+    - Escolha o typo de maquina
+    - Mantenha as configurações comum
+    - Edit o segutis group:
+        Adicione as regras:
+            type: all trafic Protocol: all Port Range: all Source: Anywhere 0.0.0.0/0
+    - Lance a maquina
+    - crie a chave de acesso
+
+no prompt do linux instale as principais libs
+	sudo apt-get install nginx supervisor python3-dev
+	
+instale o pip 
+	wget https://bootstrap.pypa.io/get-pip.py
+	sudo python3 get-pip.py
+
+instale o ambiente virtual
+	sudo pip install virtualenv
+	
+clone o repositório
+	git clone LINKDOREPOSITORIOGITDOPROJETO
+	
+monte o ambiente virtualenv
+	acesse a pagina do djangoecommerce:
+		cd djangoecommerce
+	monte o ambiente virtual:
+		virtualenv venv -p python3
+
+ative o ambiente:
+	source venv/bin/activate
+
+Instale as ferramentas necessarias para o Postgre funcionar
+	sudo apt-get build-dep python-psycopg2
+	
+Instale as dependencias:
+	pip install -r requirements.txt
+	
+crie o arquivo mginx.conf na pasta do projeto que fica o arquivo settings.py (ver como configurar do arquivo nginx.coonf na internet)
+crie o arquivo supervisor.conf na pasta do projeto que fica o arquivo settings.py (ver como configurar do arquivo supervisor.conf na internet)
+
+faça uma cópia do arquivo .conf para a pasta /etc/supervisor/conf.d/
+	ex:
+		sudo cp supervisor.conf /etc/supervisor/conf.d/djangoecommerce.conf
+		
+faça uma cópia do arquivo .nginx para a pasta /etc/nginx/sites-availabre/
+	ex:
+		sudo cp nginx.conf /etc/nginx/sites-availabre/djangoecommerce.conf
+		
+faça um link simbolico:
+	ex:
+		sudo ln -s /etc/nginx/sites-availabre/djangoecommerce.conf /etc/nginx/sites-enabled/djangoecommerce.conf
+		
+Não esqueça de fazer algumas modificações no arquivo settings.py tirando as configurações do Heroku
+	Adicione o STATIC_ROOT e p MEDIA_ROOT
+
+Crie as pastas logs e run dentro da pasta onde etsa o arquivo manage.py 
+
+rode a aplicação (com o ambiente virtual ativo):
+	python manage.py migrate
+	python manage.py collectstatic
+	sudo supervisorctl reload
+	sudo service nginx restart
+	
